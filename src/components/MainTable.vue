@@ -32,36 +32,3 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-table,
-th,
-td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-tr {
-  height: 40px;
-}
-
-thead {
-  background-color: rgb(71, 176, 160);
-}
-
-table {
-  width: 100%;
-}
-
-td {
-  padding: 10px;
-  text-align: center;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: #ddd;
-}
-</style>

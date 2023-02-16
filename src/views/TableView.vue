@@ -20,18 +20,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-.table-and-filter-bg {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 
-.table-and-filter {
-  margin: 30px 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-</style>
