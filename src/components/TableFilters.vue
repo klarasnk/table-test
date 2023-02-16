@@ -83,7 +83,7 @@
                     alt="up"
                   />
                   <img
-                    @click="sort('place', 'down')"
+                    @click="sort('orders', 'down')"
                     src="@/assets/icon/arrow-down.svg"
                     alt="down"
                   />
