@@ -10,7 +10,7 @@
     </thead>
     <tbody>
       <tr v-for="(user, i) in users" :key="i">
-        <td>{{ i+1 }}</td>
+        <td>{{user.id}}</td>
         <td>{{ user.login }}</td>
         <td>{{ user.orders }}</td>
         <td>{{ user.status }}</td>

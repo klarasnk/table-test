@@ -12,6 +12,7 @@ export default createStore({
       state.filteredUsers = state.users.sort((a, b) =>
         a.orders > b.orders ? -1 : 1
       );
+      state.filteredUsers.map((elm,index)=>elm.id=index+1)
     },
     getUsersByFilters(
       state,
@@ -33,49 +34,57 @@ export default createStore({
           elm.status.includes(statusFilter.toLowerCase())
         );
       }
-// ճիշտ տառբեարկը
+      // // ճիշտ տառբեարկը
 
-      if(sortTo === "up"){
-        state.filteredUsers = state.filteredUsers.sort((a, b) =>
-          a.sortBy > b.sortBy ? 1 : -1
-        );
-      }else if(sortTo === "down"){
-        state.filteredUsers = state.filteredUsers.sort((a, b) =>
-          a.sortBy > b.sortBy ? -1 : 1
-        );
-      }
+      //       if(sortTo === "up"){
+      //         state.filteredUsers = state.filteredUsers.sort((a, b) =>
+      //           a.sortBy > b.sortBy ? 1 : -1
+      //         );
+      //       }else if(sortTo === "down"){
+      //         state.filteredUsers = state.filteredUsers.sort((a, b) =>
+      //           a.sortBy > b.sortBy ? -1 : 1
+      //         );
+      //       }
 
       // ------------
 
-      // if(sortTo === "up"){
-      //   if (sortBy === "place") {
-      //     state.filteredUsers = state.filteredUsers.sort((a, b) =>
-      //       a.orders > b.orders ? 1 : -1
-      //     );
-      //   }else if( sortBy === "login"){
-      //     state.filteredUsers = state.filteredUsers.sort((a, b) =>
-      //       a.login > b.login ? 1 : -1
-      //     )
-      //   }
-      // }
-
-      // if (sortBy === "place" && sortTo === "up") {
-      //   state.filteredUsers = state.filteredUsers.sort((a, b) =>
-      //     a.orders > b.orders ? 1 : -1
-      //   );
-      // } else if (sortBy === "place" && sortTo === "down") {
-      //   state.filteredUsers = state.filteredUsers.sort((a, b) =>
-      //     a.orders > b.orders ? -1 : 1
-      //   );
-      // }else if( sortBy === "login" && sortTo === "up"){
-      //   state.filteredUsers = state.filteredUsers.sort((a, b) =>
-      //     a.login > b.login ? 1 : -1
-      //   )
-      // }else if( sortBy === "login" && sortTo === "down"){
-      //   state.filteredUsers = state.filteredUsers.sort((a, b) =>
-      //     a.login > b.login ? -1 : 1
-      //   )
-      // }
+      if (sortTo === "up") {
+        if (sortBy === "orders") {
+          state.filteredUsers = state.filteredUsers.sort((a, b) =>
+            a.orders > b.orders ? 1 : -1
+          );
+        } else if (sortBy === "login") {
+          state.filteredUsers = state.filteredUsers.sort((a, b) =>
+            a.login > b.login ? 1 : -1
+          );
+        }else if (sortBy === "status") {
+          state.filteredUsers = state.filteredUsers.sort((a, b) =>
+            a.status > b.status ? 1 : -1
+          );
+        }else if (sortBy === "place") {
+          state.filteredUsers = state.filteredUsers.sort((a, b) =>
+            a.orders > b.orders ? -1 : 1
+          );
+        }
+      } else if (sortTo === "down"){
+        if (sortBy === "orders") {
+          state.filteredUsers = state.filteredUsers.sort((a, b) =>
+            a.orders > b.orders ? -1 : 1
+          );
+        } else if (sortBy === "login") {
+          state.filteredUsers = state.filteredUsers.sort((a, b) =>
+            a.login > b.login ? -1 : 1
+          );
+        }else if (sortBy === "status") {
+          state.filteredUsers = state.filteredUsers.sort((a, b) =>
+            a.status > b.status ? -1 : 1
+          );
+        }else if (sortBy === "place") {
+          state.filteredUsers = state.filteredUsers.sort((a, b) =>
+            a.orders > b.orders ? 1 : -1
+          );
+        }
+      }
     },
   },
   actions: {
@@ -84,9 +93,6 @@ export default createStore({
         .then((response) => response.json())
         .then((data) => {
           commit("setUsersData", data);
-          // if (Object.keys(params).length > 0) {
-          //   commit("getUsersByFilters", params);
-          // }
         });
     },
   },

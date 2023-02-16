@@ -78,12 +78,12 @@
                 <div>Пo месту</div>
                 <div class="up-down-icons">
                   <img
-                    @click="sort('orders', 'up')"
+                    @click="sort('place', 'up')"
                     src="@/assets/icon/arrow-up.svg"
                     alt="up"
                   />
                   <img
-                    @click="sort('orders', 'down')"
+                    @click="sort('place', 'down')"
                     src="@/assets/icon/arrow-down.svg"
                     alt="down"
                   />
@@ -99,15 +99,15 @@
               <div class="sort-item">
                 <div>По количеству заказов</div>
                 <div class="up-down-icons">
-                  <img src="@/assets/icon/arrow-up.svg" alt="up" />
-                  <img src="@/assets/icon/arrow-down.svg" alt="down" />
+                  <img @click="sort('orders', 'up')" src="@/assets/icon/arrow-up.svg" alt="up" />
+                  <img @click="sort('orders', 'down')" src="@/assets/icon/arrow-down.svg" alt="down" />
                 </div>
               </div>
               <div class="sort-item">
                 <div>По статусу</div>
                 <div class="up-down-icons">
-                  <img src="@/assets/icon/arrow-up.svg" alt="up" />
-                  <img src="@/assets/icon/arrow-down.svg" alt="down" />
+                  <img @click="sort('status', 'up')" src="@/assets/icon/arrow-up.svg" alt="up" />
+                  <img @click="sort('status', 'down')" src="@/assets/icon/arrow-down.svg" alt="down" />
                 </div>
               </div>
             </div>
