@@ -1,4 +1,5 @@
 <template>
+  <div class="table">
   <table>
     <thead>
       <tr>
@@ -10,13 +11,14 @@
     </thead>
     <tbody>
       <tr v-for="(user, i) in users" :key="i">
-        <td>{{user.id}}</td>
+        <td>{{user.place}}</td>
         <td>{{ user.login }}</td>
         <td>{{ user.orders }}</td>
         <td>{{ user.status }}</td>
       </tr>
     </tbody>
   </table>
+</div>
 </template>
 
 <script>

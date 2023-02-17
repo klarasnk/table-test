@@ -3,7 +3,7 @@
     <div v-if="true" class="filter">
       <div class="dropdown">
         <div class="dropdown-text">
-          <span>Фильтр по логину</span>
+          <span>Фильтр</span>
           <img
             class="arrow-down"
             src="@/assets/icon/down-arrow.svg"
@@ -11,54 +11,39 @@
           />
         </div>
         <div class="dropdown-content">
-          <input
-            @keyup="filter"
-            type="text"
-            v-model="filterAndSort.loginFilter"
-            placeholder="фильтр"
-          />
-        </div>
-      </div>
-      <div class="dropdown">
-        <div class="dropdown-text">
-          <span>Фильтр по количеству подтв. заказов</span>
-          <img
-            class="arrow-down"
-            src="@/assets/icon/down-arrow.svg"
-            alt="image"
-          />
-        </div>
-        <div class="dropdown-content">
-          <input
-            @keyup="filter"
-            type="text"
-            v-model="filterAndSort.ordersFrom"
-            placeholder="от"
-          />
-          <input
-            @keyup="filter"
-            type="text"
-            v-model="filterAndSort.ordersTo"
-            placeholder="до"
-          />
-        </div>
-      </div>
-      <div class="dropdown">
-        <div class="dropdown-text">
-          <span>Фильтр по статусу</span>
-          <img
-            class="arrow-down"
-            src="@/assets/icon/down-arrow.svg"
-            alt="image"
-          />
-        </div>
-        <div class="dropdown-content">
-          <input
-            @keyup="filter"
-            type="text"
-            v-model="filterAndSort.statusFilter"
-            placeholder="фильтр"
-          />
+          <div class="dropdown-content-item">
+            <span class="filter-item">По логину</span>
+            <input
+              @keyup="filter"
+              type="text"
+              v-model="filterAndSort.loginFilter"
+              placeholder="фильтр"
+            />
+          </div>
+          <div class="dropdown-content-item">
+            <span>По количеству подтв. заказов</span>
+            <input
+              @keyup="filter"
+              type="text"
+              v-model="filterAndSort.ordersFrom"
+              placeholder="от"
+            />
+            <input
+              @keyup="filter"
+              type="text"
+              v-model="filterAndSort.ordersTo"
+              placeholder="до"
+            />
+          </div>
+          <div class="dropdown-content-item">
+            <span>По статусу</span>
+            <input
+              @keyup="filter"
+              type="text"
+              v-model="filterAndSort.statusFilter"
+              placeholder="фильтр"
+            />
+          </div>
         </div>
       </div>
       <div>
@@ -72,71 +57,28 @@
             />
           </div>
           <div class="dropdown-content">
-            <div class="sort-item">
-              <div>Пo месту</div>
+            <div v-for="(item, i) in sortList" key="i" class="sort-item">
+              <div>{{ item.text }}</div>
               <div class="up-down-icons">
                 <img
-                  @click="sort('place', 'up')"
-                  src="@/assets/icon/arrow-up.svg"
-                  alt="up"
-                />
-                <img
-                  @click="sort('place', 'down')"
-                  src="@/assets/icon/arrow-down.svg"
-                  alt="down"
-                />
-              </div>
-            </div>
-            <div class="sort-item">
-              <div>По логину</div>
-              <div class="up-down-icons">
-                <img
-                  @click="sort('login', 'up')"
-                  src="@/assets/icon/arrow-up.svg"
-                  alt="up"
-                />
-                <img
-                  @click="sort('login', 'down')"
-                  src="@/assets/icon/arrow-down.svg"
-                  alt="down"
-                />
-              </div>
-            </div>
-            <div class="sort-item">
-              <div>По количеству заказов</div>
-              <div class="up-down-icons">
-                <img
-                  @click="sort('orders', 'up')"
-                  src="@/assets/icon/arrow-up.svg"
-                  alt="up"
-                />
-                <img
-                  @click="sort('orders', 'down')"
-                  src="@/assets/icon/arrow-down.svg"
-                  alt="down"
-                />
-              </div>
-            </div>
-            <div class="sort-item">
-              <div>По статусу</div>
-              <div class="up-down-icons">
-                <img
-                  @click="sort('status', 'up')"
-                  src="@/assets/icon/arrow-up.svg"
-                  alt="up"
-                />
-                <img
-                  @click="sort('status', 'down')"
-                  src="@/assets/icon/arrow-down.svg"
-                  alt="down"
+                  v-for="(elm, key) in item.sortListTo"
+                  key="key"
+                  :class="{ active: sortList[i].sortListTo[key].isActive }"
+                  @click="sort(i, key)"
+                  :src="
+                    elm.to === 'up'
+                      ? require('@/assets/icon/arrow-up.svg')
+                      : require('@/assets/icon/arrow-down.svg')
+                  "
+                  :alt="elm.to"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="reset-filters" @click="reset">
-        <div>Сброс фильтров</div>
+      <div class="dropdown-text" @click="reset">
+        <div>Сброс</div>
         <img src="@/assets/icon/icons8-close-24.png" alt="close" />
       </div>
     </div>
@@ -158,10 +100,30 @@ export default {
         sortBy: null,
         sortTo: null,
       },
+      isActive: false,
+      sortList: [
+        {
+          text: "Пo месту",
+          sortBy: "place",
+          sortListTo: [{ to: "up" }, { to: "down" }],
+        },
+        {
+          text: "По логину",
+          sortBy: "login",
+          sortListTo: [{ to: "up" }, { to: "down" }],
+        },
+        {
+          text: "По количеству заказов",
+          sortBy: "orders",
+          sortListTo: [{ to: "up" }, { to: "down" }],
+        },
+        {
+          text: "По статусу",
+          sortBy: "status",
+          sortListTo: [{ to: "up" }, { to: "down" }],
+        },
+      ],
     };
-  },
-  created() {
-    this.fetchUsersData(this.$route.query);
   },
   methods: {
     ...mapMutations(["getUsersByFilters"]),
@@ -175,23 +137,42 @@ export default {
         }
       });
       this.$router.push({
-        name: "sortView",
+        name: "tableView",
         query,
       });
       this.getUsersByFilters(this.filterAndSort);
     },
-    sort(by, to) {
-      this.filterAndSort.sortBy = by;
-      this.filterAndSort.sortTo = to;
-      this.getUsersByFilters(this.filterAndSort);
-      this.filter()
+    sort(indexBy, indexTo) {
+      this.filterAndSort.sortBy = this.sortList[indexBy].sortBy;
+      this.filterAndSort.sortTo = this.sortList[indexBy].sortListTo[indexTo].to;
+      this.sortList.map((elm) =>
+        elm.sortListTo.map((el) => (el.isActive = false))
+      );
+      this.sortList[indexBy].sortListTo[indexTo].isActive = true;
+      this.filter();
     },
     reset() {
       this.filterAndSort = Object.keys(this.filterAndSort).map((item) => {
         this.filterAndSort[item] = null;
       });
+      this.sortList.map((elm) =>
+        elm.sortListTo.map((el) => (el.isActive = false))
+      );
       this.filter();
     },
+  },
+  mounted() {
+    this.fetchUsersData(this.$route.query);
+    Object.keys(this.$route.query).map((item) => {
+      this.filterAndSort[item] = this.$route.query[item];
+    });
+    this.sortList.map((elm) =>
+      elm.sortBy === this.$route.query.sortBy
+        ? elm.sortListTo.map((el) =>
+            el.to === this.$route.query.sortTo ? (el.isActive = true) : el
+          )
+        : elm
+    );
   },
 };
 </script>
