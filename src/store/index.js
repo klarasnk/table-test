@@ -42,19 +42,6 @@ export default createStore({
           elm.status.includes(statusFilter.toLowerCase())
         );
       }
-      // // ճիշտ տառբեարկը
-
-      //       if(sortTo === "up"){
-      //         state.filteredUsers = state.filteredUsers.sort((a, b) =>
-      //           a.sortBy > b.sortBy ? 1 : -1
-      //         );
-      //       }else if(sortTo === "down"){
-      //         state.filteredUsers = state.filteredUsers.sort((a, b) =>
-      //           a.sortBy > b.sortBy ? -1 : 1
-      //         );
-      //       }
-
-      // ------------
       if (sortTo && sortBy) {
         if (sortTo === "up") {
           if (sortBy === "orders") {

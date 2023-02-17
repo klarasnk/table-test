@@ -161,16 +161,22 @@ export default {
     };
   },
   created() {
-    this.fetchUsersData(this.$route.params);
+    this.fetchUsersData(this.$route.query);
   },
   methods: {
     ...mapMutations(["getUsersByFilters"]),
     ...mapActions(["fetchUsersData"]),
 
     filter() {
+      let query = {};
+      Object.keys(this.filterAndSort).map((item) => {
+        if (this.filterAndSort[item] !== null) {
+          query[item] = this.filterAndSort[item];
+        }
+      });
       this.$router.push({
         name: "sortView",
-        params: this.filterAndSort,
+        query,
       });
       this.getUsersByFilters(this.filterAndSort);
     },
@@ -178,6 +184,7 @@ export default {
       this.filterAndSort.sortBy = by;
       this.filterAndSort.sortTo = to;
       this.getUsersByFilters(this.filterAndSort);
+      this.filter()
     },
     reset() {
       this.filterAndSort = Object.keys(this.filterAndSort).map((item) => {

@@ -8,8 +8,8 @@ const routes = [
     component: TableView,
   },
   {
-    path: "/login-filter=:loginFilter?&order-from-filter=:ordersFrom?&order-to-filter=:ordersTo?&status-filter=:statusFilter?&sort-by-filter=:sortBy?&sort-to-filter=:sortTo?",
-    // path: "/",
+    // path: "/login-filter=:loginFilter?&order-from-filter=:ordersFrom?&order-to-filter=:ordersTo?&status-filter=:statusFilter?&sort-by-filter=:sortBy?&sort-to-filter=:sortTo?",
+    path: "/",
     name: "sortView",
     component: TableView,
   },
